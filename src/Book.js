@@ -9,7 +9,7 @@ const Book = (props) => {
          <div className="book-top">
             <div className="book-cover" 
                style={{ width: 128, height: 193, backgroundImage: (book && book.imageLinks && book.imageLinks.thumbnail) ? `url(${book.imageLinks.thumbnail})`: "" }}></div>
-            <BookShelfChanger />              
+            <BookShelfChanger book={book} />              
          </div>
          <div className="book-title">{book && book.title ? book.title : ""}</div>
          <div className="book-authors">{book && book.authors ? book.authors.join(", "): ""}</div>
