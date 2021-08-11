@@ -122,6 +122,10 @@ button:active {
   padding: 80px 10px 20px;
 }
 
+.search-books-results h2{
+  text-align: center;
+}
+
 /* books grid */
 
 .books-grid {

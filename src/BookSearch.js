@@ -6,7 +6,8 @@ import * as BooksAPI from './BooksAPI';
 class BookSearch extends Component {
    state = {
       text: "",
-      books: []
+      books: [],
+      error: false
    }
 
    handleChange = (e) => {
@@ -18,14 +19,27 @@ class BookSearch extends Component {
       if(e.target.value.trim() != ""){
          BooksAPI.search(encodeURI(e.target.value)).then((res) => {
             if(res.error){
-               //TODO: There is an error, display something on page
+               this.setState((prevState) => ({
+                  ...prevState,
+                  error: true,
+                  books: []
+               }))
             }
-                        
-            this.setState((prevState) => ({
-               ...prevState,
-               books: res.error? [] : res
-            }))
+            else {
+               this.setState((prevState) => ({
+                  ...prevState,
+                  error: false,
+                  books: res
+               }))
+            }                       
          })
+      }
+      else {
+         this.setState((prevState) => ({
+            ...prevState,
+            error: false,
+            books: []
+         }))
       }
    }
    
@@ -51,6 +65,8 @@ class BookSearch extends Component {
                      </li>
                   ))}
                </ol>
+               { this.state.error && <h2>No book matches search criteria.</h2> }
+               
             </div>
          </div>
       )}
