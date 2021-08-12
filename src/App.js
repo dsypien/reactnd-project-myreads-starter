@@ -29,7 +29,7 @@ class BooksApp extends React.Component {
       this.setState((prevState) => {
         let shelves = [...prevState.shelves];
 
-        this.state.shelves.forEach( shelf => {
+        shelves.forEach( shelf => {
           shelf.books = books.filter( b => b.shelf === shelf.id);
         }); 
 
@@ -41,16 +41,51 @@ class BooksApp extends React.Component {
     });
   }
 
+  
+  handleShelfChange = (shelf, book) => {
+    BooksAPI.update(book, shelf).then( (res) => {
+      this.setState((prevState) => {
+        let shelves = [...prevState.shelves];
+        let books = [...prevState.books];
+
+        const index = prevState.books.findIndex( b => b.id === book.id );
+
+        if(index === -1){
+          book.shelf = shelf;
+          books.push(book);          
+        }
+        else {
+          if(shelf === "none") {
+            books.splice(index, 1);
+          }
+          else{
+            books[index].shelf = shelf;
+          }          
+        }
+
+        shelves.forEach( shelf => {
+          shelf.books = books.filter(b => res[shelf.id].includes(b.id))
+        })
+
+        return  {
+          ...prevState,
+          books: books,
+          shelves: shelves
+        }});
+      });
+
+  }
+
   render() {
     return (
       <div className="app">
         <Router>
           <Switch>
             <Route exact path="/">
-              <BookList shelves={this.state.shelves} />    
+              <BookList shelves={this.state.shelves} books={this.state.books} handleShelfChange={ this.handleShelfChange }/>    
             </Route>
             <Route path="/search">
-              <BookSearch />
+              <BookSearch handleShelfChange={ this.handleShelfChange } books={this.state.books}/>
             </Route>
           </Switch>
         </Router>  

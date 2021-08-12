@@ -1,18 +1,12 @@
 import React from 'react';
-import * as BooksAPI from './BooksAPI';
 
 const BookShelfChanger = (props) => {  
    const shelf = props.book.shelf || "none";
-
-   const handleShelfChange = (e) => {
-      BooksAPI.update(props.book, e.target.value).then( (res) => {
-         console.log(res);
-      });
-   }
-
+   const handleShelfChange = props.handleShelfChange;
+   
    return (
       <div className="book-shelf-changer">
-         <select value={shelf} onChange={(e) => {handleShelfChange(e)}}>
+         <select value={shelf} onChange={(e) => {handleShelfChange(e.target.value, props.book)}}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

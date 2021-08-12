@@ -3,6 +3,7 @@ import Book from './Book';
 
 const BookShelf = (props) => {
    const { name, books } = props.shelf;
+   const handleShelfChange = props.handleShelfChange;
 
    return (
       <div>
@@ -12,7 +13,7 @@ const BookShelf = (props) => {
                <ol className="books-grid">
                      { books.map((book) => (
                         <li key={book.id}>
-                           <Book book={book} />
+                           <Book book={book} handleShelfChange={ handleShelfChange }/>
                         </li>      
                      ))}
                </ol>
