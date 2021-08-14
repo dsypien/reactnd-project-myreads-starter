@@ -1,5 +1,4 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css'
 import * as BooksAPI from './BooksAPI';
@@ -24,8 +23,6 @@ class BooksApp extends React.Component {
 
   componentDidMount = () => {
     BooksAPI.getAll().then((books) => {
-      console.log(books);
-
       this.setState((prevState) => {
         let shelves = [...prevState.shelves];
 
@@ -82,10 +79,15 @@ class BooksApp extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/">
-              <BookList shelves={this.state.shelves} books={this.state.books} handleShelfChange={ this.handleShelfChange }/>    
+              <BookList 
+                shelves={this.state.shelves} 
+                books={this.state.books} 
+                handleShelfChange={this.handleShelfChange}/>    
             </Route>
             <Route path="/search">
-              <BookSearch handleShelfChange={ this.handleShelfChange } books={this.state.books}/>
+              <BookSearch 
+                handleShelfChange={this.handleShelfChange} 
+                books={this.state.books}/>
             </Route>
           </Switch>
         </Router>  

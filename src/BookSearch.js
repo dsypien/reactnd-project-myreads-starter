@@ -65,7 +65,6 @@ class BookSearch extends Component {
          }
       })
 
-
       this.props.handleShelfChange(shelf, book);
    }
    
@@ -91,7 +90,7 @@ class BookSearch extends Component {
                      </li>
                   ))}
                </ol>
-               { this.state.error && <h2>No book matches search criteria.</h2> }
+               {this.state.error && <h2>No book matches search criteria.</h2>}
                
             </div>
          </div>
