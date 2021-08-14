@@ -11,12 +11,12 @@ class BookSearch extends Component {
    }
 
    handleChange = (e) => {
-      const text = e .target.value;
+      const text = e.target.value;
       this.setState(() => ({
          text: text
       }))
 
-      if(e.target.value.trim() != ""){
+      if(e.target.value.trim() !== ""){
          BooksAPI.search(encodeURI(e.target.value)).then((res) => {
             if(res.error){
                this.setState((prevState) => ({
