@@ -51,6 +51,23 @@ class BookSearch extends Component {
          }))
       }
    }
+
+   handleShelfChange = (shelf, book) => {
+      this.setState((prevState) => {
+         let books = prevState.books;
+
+         const index = prevState.books.findIndex(b => b.id === book.id);
+         books[index].shelf = shelf;
+         
+         return {
+            ...prevState,
+            books
+         }
+      })
+
+
+      this.props.handleShelfChange(shelf, book);
+   }
    
    render() {
       return (
@@ -70,7 +87,7 @@ class BookSearch extends Component {
                <ol className="books-grid">
                   {this.state.books.map((book) => (
                      <li key={book.id}>
-                        <Book book={book} handleShelfChange={this.props.handleShelfChange} />
+                        <Book book={book} handleShelfChange={this.handleShelfChange} />
                      </li>
                   ))}
                </ol>
