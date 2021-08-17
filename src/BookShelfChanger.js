@@ -2,7 +2,7 @@ import React from 'react';
 
 const BookShelfChanger = (props) => {  
    const shelf = props.book.shelf || "none";
-   const handleShelfChange = props.handleShelfChange;
+   const { handleShelfChange } = props;
    
    return (
       <div className="book-shelf-changer">
