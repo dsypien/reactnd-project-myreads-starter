@@ -17,7 +17,7 @@ class BookSearch extends Component {
       }))
 
       if(text.trim() !== ""){
-         BooksAPI.search(text).then((res) => {
+         BooksAPI.search(text.trim()).then((res) => {
             if(res.error){
                this.setState((prevState) => ({
                   ...prevState,
